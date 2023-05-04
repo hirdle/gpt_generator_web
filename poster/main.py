@@ -47,7 +47,6 @@ def write_post(channel):
         themes_list = channel['themes'].split('\n')
         template = channel['template']
 
-        print(datetime.now().strftime("%H:%M"))
         
         if datetime.now(pytz.timezone('Europe/Moscow')).strftime("%H:%M") in publish_time:
 
