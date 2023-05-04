@@ -3,6 +3,7 @@ import time
 from multiprocessing import Process
 from datetime import datetime
 import config
+import pytz
 
 import telebot
 bot = telebot.TeleBot(config.API_TOKEN_TELEGRAM, parse_mode="html")
@@ -48,18 +49,11 @@ def write_post(channel):
 
         print(datetime.now().strftime("%H:%M"))
         
-        if datetime.now().strftime("%H:%M") in publish_time:
+        if datetime.now(pytz.timezone('Europe/Moscow')).strftime("%H:%M") in publish_time:
 
             try:
 
-                
-
-
                 now_theme = themes_list[0]
-
-                print(now_theme)
-                
-                # if now_theme.strip() != "":
 
                 text_post = get_chatgpt_data(template.replace("*Theme*", now_theme))
 
@@ -107,13 +101,12 @@ def watch_api():
     
     while True:
         channels = get_channels()
-        # print(channels)
         if channels != last_channels:
             stop_poster_channels()
             start_poster_channels(channels)
             print("OK")
         last_channels = channels
         time.sleep(3)
-print("OK")
+        
 start_poster_channels(get_channels())
 watch_api()
