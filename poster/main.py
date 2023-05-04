@@ -50,8 +50,12 @@ def write_post(channel):
 
             try:
 
+                
+
 
                 now_theme = themes_list[0]
+
+                print(now_theme)
                 
                 # if now_theme.strip() != "":
 
