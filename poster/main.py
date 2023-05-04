@@ -112,6 +112,6 @@ def watch_api():
             print("OK")
         last_channels = channels
         time.sleep(3)
-
+print("OK")
 start_poster_channels(get_channels())
 watch_api()
