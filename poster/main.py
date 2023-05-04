@@ -7,7 +7,7 @@ import config
 import telebot
 bot = telebot.TeleBot(config.API_TOKEN_TELEGRAM, parse_mode="html")
 
-default_domain = 'http://127.0.0.1:8000/api/channels/'
+default_domain = 'http://gpt-generator.na4u.ru/api/channels/'
 
 poster_processes = []
 
