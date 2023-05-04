@@ -48,12 +48,16 @@ def write_post(channel):
         
         if datetime.now().strftime("%H:%M") in publish_time:
 
+            try:
 
-            now_theme = themes_list[0]
-            
-            if now_theme.strip() != "":
+
+                now_theme = themes_list[0]
+                
+                # if now_theme.strip() != "":
 
                 text_post = get_chatgpt_data(template.replace("*Theme*", now_theme))
+
+                print(text_post)
 
                 bot.send_message(channel['telegram_id'], text_post)
 
@@ -62,6 +66,9 @@ def write_post(channel):
                 requests.put(f'{default_domain}{channel["id"]}/update/', data=channel)
 
                 time.sleep(60)
+
+            except:
+                pass
 
 
 
