@@ -45,6 +45,8 @@ def write_post(channel):
         publish_time = channel['publish_interval'].split('\n')
         themes_list = channel['themes'].split('\n')
         template = channel['template']
+
+        print(datetime.now().strftime("%H:%M"))
         
         if datetime.now().strftime("%H:%M") in publish_time:
 
@@ -105,7 +107,7 @@ def watch_api():
     
     while True:
         channels = get_channels()
-        print(channels)
+        # print(channels)
         if channels != last_channels:
             stop_poster_channels()
             start_poster_channels(channels)
