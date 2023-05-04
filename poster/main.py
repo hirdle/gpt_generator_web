@@ -105,9 +105,11 @@ def watch_api():
     
     while True:
         channels = get_channels()
+        print(channels)
         if channels != last_channels:
             stop_poster_channels()
             start_poster_channels(channels)
+            print("OK")
         last_channels = channels
         time.sleep(3)
 
