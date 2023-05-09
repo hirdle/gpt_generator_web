@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Channel
+from users.models import Channel, Image
 
 class ChannelSerializer(serializers.ModelSerializer):
     class Meta:
@@ -10,3 +10,12 @@ class ChannelSerializer(serializers.ModelSerializer):
         instance.themes = validated_data.get('themes', instance.themes)
         instance.save()
         return instance
+    
+
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Image
+        fields = '__all__'
+
+    def delete(self, instance, validated_data):
+        instance.delete()

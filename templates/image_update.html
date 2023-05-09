@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %} 
+
+{% block content %}
+
+<h1 class="mb-4">Канал {{ channel.name }}</h1>
+
+
+<h4 class="mb-3">Активные картинки:</h4>
+
+{% if images %}
+
+    <ul class="list-group mb-4">
+        {% for i in images %}
+            <li class="list-group-item images-list-item">
+                <img src="{{ MEDIA_URL}}{{ i.upload.url }}" alt="{{ i.theme }}">
+                <h5>{{ i.theme }}</h5>
+                <a href="/images/{{ i.id }}/delete/" class="btn btn-danger">Удалить</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% else %}
+
+    <p class="mb-3">Нет активных картинок</p>
+
+{% endif %}
+
+<h4 class="mb-3">Доступные темы:</h4>
+
+{% if themes %}
+
+    <p>{{ themes|safe }}</p>
+
+{% else %}
+
+    <p class="mb-3">Нет активных тем</p>
+
+{% endif %}
+
+<h4 class="mb-3">Добавить новую:</h4>
+
+{% if themes %}
+
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.theme_id.label }}
+        <input type="number" name="theme_id" class="numberinput form-control mb-1" id="id_theme_id" max="{{ max_themes_id }}">
+        
+        {{ form.upload|as_crispy_field }}
+        <button type="submit" class="btn btn-primary">Добавить</button>
+    </form>
+
+{% else %}
+
+    <p class="mb-3">Для добавления картинки создайте тему.</p>
+
+{% endif %}
+
+  
+{% endblock %}

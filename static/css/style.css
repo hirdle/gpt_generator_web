@@ -1,3 +1,18 @@
 textarea {
     resize: none;
 }
+
+.images-list-item {
+    width: 40%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 50px;
+    padding: 20px 0;
+    
+}
+
+.images-list-item > img {
+    height: 150px;
+    border-radius: 5px;
+}
