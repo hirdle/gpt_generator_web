@@ -8,8 +8,8 @@ class Channel(models.Model):
     telegram_id = models.IntegerField(null=True, blank=True)
     themes = models.TextField(default="", null=True, blank=True)
     template = models.TextField(default="*Theme*")
-    publish_interval = models.TextField(default="", null=True, blank=True)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    publish_interval = models.TextField(default="")
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
 
 
