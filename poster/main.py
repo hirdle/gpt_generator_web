@@ -56,13 +56,13 @@ def write_post(channel):
 
                 text_post = get_chatgpt_data(template.replace("*Theme*", now_theme))
 
-                print(text_post)
-
                 bot.send_message(channel['telegram_id'], text_post)
 
                 themes_list.pop(0)
+                print(channel)
                 channel['themes'] = "\n".join(themes_list).strip()
-                requests.put(f'{default_domain}{channel["id"]}/update/', data=channel)
+                r = requests.put(f'{default_domain}{channel["id"]}/update/', json=channel)
+                print(r.text)
 
                 time.sleep(60)
 
@@ -103,9 +103,8 @@ def watch_api():
         if channels != last_channels:
             stop_poster_channels()
             start_poster_channels(channels)
-            print("OK")
         last_channels = channels
-        time.sleep(10)
+        time.sleep(20)
         
 start_poster_channels(get_channels())
 watch_api()
