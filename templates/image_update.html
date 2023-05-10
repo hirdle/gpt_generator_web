@@ -46,7 +46,7 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.theme_id.label }}
-        <input type="number" name="theme_id" class="numberinput form-control mb-1" id="id_theme_id" max="{{ max_themes_id }}" min="1">
+        <input type="number" name="theme_id" class="numberinput form-control mb-4" id="id_theme_id" max="{{ max_themes_id }}" min="1">
         
         {{ form.upload|as_crispy_field }}
         <button type="submit" class="btn btn-primary">Добавить</button>

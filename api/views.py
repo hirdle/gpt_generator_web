@@ -11,6 +11,7 @@ from rest_framework.generics import RetrieveUpdateAPIView, RetrieveDestroyAPIVie
 class ChannelDetailView(RetrieveAPIView):
     queryset = Channel.objects.all()
     serializer_class = ChannelSerializer
+    http_method_names = ['get']
 
 
 class ChannelUpdateView(RetrieveUpdateAPIView):

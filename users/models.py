@@ -5,10 +5,10 @@ from django.contrib.auth.models import User
 class Channel(models.Model):
 
     name = models.CharField(max_length=255, default="Default")
-    telegram_id = models.IntegerField()
+    telegram_id = models.IntegerField(null=True, blank=True)
     themes = models.TextField(default="", null=True, blank=True)
     template = models.TextField(default="*Theme*")
-    publish_interval = models.TextField(default="")
+    publish_interval = models.TextField(default="", null=True, blank=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
