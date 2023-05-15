@@ -78,8 +78,8 @@ def write_post(channel):
             except Exception as e:
                 print(e)
                 
-            
-            time.sleep(61)
+            publish_time.pop(0)
+
 
 
 
