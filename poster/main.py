@@ -41,6 +41,7 @@ def get_chatgpt_data(prompt):
         print(error)
         return f"Возникли некоторые трудности."
 
+
 def write_post(channel):
 
     while True:
@@ -78,9 +79,6 @@ def write_post(channel):
             except Exception as e:
                 print(e)
                 
-            publish_time.pop(0)
-
-
 
 
 
@@ -115,9 +113,9 @@ def watch_api():
         channels = get_channels()
         if channels != last_channels:
             stop_poster_channels()
+            time.sleep(60)
             start_poster_channels(channels)
         last_channels = channels
-        time.sleep(20)
 
 # print(get_chatgpt_data('hhi'))
 # start_poster_channels(get_channels())
