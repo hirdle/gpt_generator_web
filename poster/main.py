@@ -8,7 +8,8 @@ import pytz
 import telebot
 bot = telebot.TeleBot(config.API_TOKEN_TELEGRAM, parse_mode="html")
 
-default_domain = 'http://gpt-generator.na4u.ru/api/channels/'
+default_domain = 'https://gpt-tool.ru/api/channels/'
+default_domain_img = 'https://gpt-tool.ru/api/images/'
 
 poster_processes = []
 
@@ -52,22 +53,34 @@ def write_post(channel):
 
             try:
 
-                now_theme = themes_list[0]
+                images = requests.get(default_domain_img).json()
 
+                now_theme = themes_list[0].strip()
                 text_post = get_chatgpt_data(template.replace("*Theme*", now_theme))
+
+                images_post = list(filter(lambda x: x['theme']==now_theme and x['channel']==channel["id"], images))
+                images_urls = [x['upload'] for x in images_post]
+                
+                if len(images_urls) > 0:
+                    bot.send_photo(channel['telegram_id'], images_urls[0])
 
                 bot.send_message(channel['telegram_id'], text_post)
 
                 themes_list.pop(0)
-                print(channel)
-                channel['themes'] = "\n".join(themes_list).strip()
-                r = requests.put(f'{default_domain}{channel["id"]}/update/', json=channel)
-                print(r.text)
+                
+                j={"themes": "\n".join(themes_list).strip()}
+                requests.put(f'{default_domain}{channel["id"]}/update/', data=j)
 
-                time.sleep(60)
+                for i in images_post:
+                    requests.delete(f'{default_domain_img}{i["id"]}/delete/')
 
-            except:
-                pass
+
+            except Exception as e:
+                print(e)
+                
+            
+            time.sleep(61)
+
 
 
 
@@ -105,6 +118,7 @@ def watch_api():
             start_poster_channels(channels)
         last_channels = channels
         time.sleep(20)
-        
-start_poster_channels(get_channels())
+
+# print(get_chatgpt_data('hhi'))
+# start_poster_channels(get_channels())
 watch_api()
