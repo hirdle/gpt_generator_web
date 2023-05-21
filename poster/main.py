@@ -49,10 +49,10 @@ def write_post(channel):
         themes_list = channel['themes'].split('\n')
         template = channel['template']
 
-        print(datetime.now(pytz.timezone('Europe/Moscow')).strftime("%H:%M"), publish_time)
         if datetime.now(pytz.timezone('Europe/Moscow')).strftime("%H:%M") in publish_time:
 
             try:
+                print("Publishing")
 
                 images = requests.get(default_domain_img).json()
 
@@ -75,6 +75,7 @@ def write_post(channel):
                 for i in images_post:
                     requests.delete(f'{default_domain_img}{i["id"]}/delete/')
 
+                time.sleep(60)
 
             except Exception as e:
                 print(e)
@@ -117,7 +118,7 @@ def watch_api():
             start_poster_channels(channels)
         last_channels = channels
 
-        time.sleep(300)
+        time.sleep(120)
 
 # print(get_chatgpt_data('hhi'))
 # start_poster_channels(get_channels())
