@@ -49,7 +49,7 @@ def write_post(channel):
         themes_list = channel['themes'].split('\n')
         template = channel['template']
 
-        
+        print(datetime.now(pytz.timezone('Europe/Moscow')).strftime("%H:%M"), publish_time)
         if datetime.now(pytz.timezone('Europe/Moscow')).strftime("%H:%M") in publish_time:
 
             try:
