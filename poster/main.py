@@ -5,6 +5,11 @@ from datetime import datetime
 import config
 import pytz
 
+from generate_image import generate_image
+
+import asyncio, os
+
+
 import telebot
 bot = telebot.TeleBot(config.API_TOKEN_TELEGRAM, parse_mode="html")
 
@@ -63,9 +68,15 @@ def write_post(channel):
                 images_urls = [x['upload'] for x in images_post]
                 
                 if len(images_urls) > 0:
-                    bot.send_photo(channel['telegram_id'], images_urls[0])
+                    m = bot.send_photo(channel['telegram_id'], images_urls[0])
+                else:
+                    asyncio.run(generate_image(now_theme))
+                    time.sleep(10)
+                    m = bot.send_photo(channel['telegram_id'], open(f'images/{now_theme}.png', 'rb'))
+                    os.remove(f'images/{now_theme}.png')
 
-                bot.send_message(channel['telegram_id'], text_post)
+                bot.reply_to(m, text_post)
+                # bot.send_message(channel['telegram_id'], text_post)
 
                 themes_list.pop(0)
                 
