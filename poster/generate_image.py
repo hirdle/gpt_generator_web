@@ -46,6 +46,8 @@ async def imagine(prompt, overlay):
             os.remove(path)
             new_img = Image.new("RGBA", (768, 768), (255, 255, 255, 0))
             new_img.paste(img, (0, 0))
+
+            nonlocal overlay
             
             if overlay:
                 overlay = Image.open(overlay)
