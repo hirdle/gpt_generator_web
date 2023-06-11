@@ -46,8 +46,12 @@ async def imagine(prompt, overlay):
             os.remove(path)
             new_img = Image.new("RGBA", (768, 768), (255, 255, 255, 0))
             new_img.paste(img, (0, 0))
+            
             if overlay:
+                overlay = Image.open(overlay)
+                overlay = overlay.resize((768, 768))
                 new_img.alpha_composite(overlay)
+
             new_img.save(f"images/{prompt}.png")
 
 
