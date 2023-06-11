@@ -3,9 +3,6 @@ from PIL import Image
 import time
 import os
 
-overlay = Image.open("overlay.png")
-overlay = overlay.resize((768, 768))
-
 api_id = 26766111
 api_hash = "fc3e1cc249f4986fc9f616805a7320e0"
 bot_name = "kandinsky21_bot"
