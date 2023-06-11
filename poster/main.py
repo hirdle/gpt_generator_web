@@ -53,6 +53,14 @@ def write_post(channel):
         publish_time = [i.strip() for i in channel['publish_interval'].split('\n')]
         themes_list = channel['themes'].split('\n')
         template = channel['template']
+        overlay = channel['overlay']
+        overlay_path = None
+
+        if overlay:
+            overlay_path = f'overlays/overlay_{channel["id"]}.jpg'
+            overlay_data = requests.get(overlay).content
+            with open(overlay_path, 'wb') as handler:
+                handler.write(overlay_data)
 
         if datetime.now(pytz.timezone('Europe/Moscow')).strftime("%H:%M") in publish_time:
 
@@ -70,7 +78,7 @@ def write_post(channel):
                 if len(images_urls) > 0:
                     m = bot.send_photo(channel['telegram_id'], images_urls[0])
                 else:
-                    generate_image(now_theme)
+                    generate_image(now_theme, overlay_path)
                     # time.sleep(10)
                     m = bot.send_photo(channel['telegram_id'], open(f'images/{now_theme}.png', 'rb'))
                     os.remove(f'images/{now_theme}.png')

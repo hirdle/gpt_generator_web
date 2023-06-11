@@ -24,7 +24,7 @@ async def send_prompt(prompt):
     time.sleep(1)
 
 
-async def imagine(prompt):
+async def imagine(prompt, overlay):
 
     # while True:
     #     if "Добавил в очередь на генерацию изображения." not in client.iter_messages(bot_name)[-1].text:
@@ -46,7 +46,8 @@ async def imagine(prompt):
             os.remove(path)
             new_img = Image.new("RGBA", (768, 768), (255, 255, 255, 0))
             new_img.paste(img, (0, 0))
-            # new_img.alpha_composite(overlay)
+            if overlay:
+                new_img.alpha_composite(overlay)
             new_img.save(f"images/{prompt}.png")
 
 
@@ -59,7 +60,7 @@ async def imagine(prompt):
 
 
 
-def generate_image(prompt):
+def generate_image(prompt, overlay):
     with client:
-        client.loop.run_until_complete(imagine(prompt))
+        client.loop.run_until_complete(imagine(prompt, overlay))
 
