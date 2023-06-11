@@ -4,13 +4,14 @@ from .models import Channel, Image
 class ChannelForm(forms.ModelForm):
     class Meta:
         model = Channel
-        fields = ['name', 'telegram_id', 'themes', 'template', 'publish_interval']
+        fields = ['name', 'telegram_id', 'themes', 'template', 'publish_interval', 'overlay']
         labels = {
             'name': 'Имя канала',
             'telegram_id': 'ID телеграм канала',
             'themes': 'Список тем (каждая с новой строки)',
             'template': 'Шаблон поста (обозначение темы - *Theme*)',
             'publish_interval': 'Расписание публикаций (пример: 13:00, 15:00, каждое время с новой строки)',
+            'overlay': 'Картинка для наложения на фото при публикации',
         }
 
 

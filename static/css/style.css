@@ -3,16 +3,38 @@ textarea {
 }
 
 .images-list-item {
-    width: 40%;
+    width: 400px;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    flex-direction: column;
     margin-bottom: 50px;
-    padding: 20px 0;
+    padding: 15px;
+    padding-bottom: 25px;
+
+    border: 1px solid #ccc;
     
 }
 
 .images-list-item > img {
-    height: 150px;
+    max-width: 250px;
+    /* max-height: 200px; */
+    object-fit: cover;
+    display: block;
+    max-width: 100%;
     border-radius: 5px;
+    /* padding: 0; */
+}
+
+.images-list-item > h5 {
+    padding: 8px 0;
+}
+
+.grid_container {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    justify-items: center;
+    align-items: center;
 }

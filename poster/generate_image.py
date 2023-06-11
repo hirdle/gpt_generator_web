@@ -6,11 +6,12 @@ import os
 overlay = Image.open("overlay.png")
 overlay = overlay.resize((768, 768))
 
-api_id = 10957511
-api_hash = "8cb27af3d7324ec48f34d254cebd21fc"
+api_id = 26766111
+api_hash = "fc3e1cc249f4986fc9f616805a7320e0"
 bot_name = "kandinsky21_bot"
 
 client = TelegramClient("my_account", api_id, api_hash)
+
 
 current_name = ""
 
@@ -29,6 +30,8 @@ async def imagine(prompt):
     #     if "Добавил в очередь на генерацию изображения." not in client.iter_messages(bot_name)[-1].text:
     #         break
     #     time.sleep(5)
+
+            
     
     await send_prompt(prompt)
 
@@ -43,7 +46,7 @@ async def imagine(prompt):
             os.remove(path)
             new_img = Image.new("RGBA", (768, 768), (255, 255, 255, 0))
             new_img.paste(img, (0, 0))
-            new_img.alpha_composite(overlay)
+            # new_img.alpha_composite(overlay)
             new_img.save(f"images/{prompt}.png")
 
 
@@ -56,7 +59,7 @@ async def imagine(prompt):
 
 
 
-async def generate_image(prompt):
-    async with client:
-        await imagine(prompt)
+def generate_image(prompt):
+    with client:
+        client.loop.run_until_complete(imagine(prompt))
 

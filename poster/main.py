@@ -50,7 +50,7 @@ def get_chatgpt_data(prompt):
 def write_post(channel):
 
     while True:
-        publish_time = channel['publish_interval'].split('\n')
+        publish_time = [i.strip() for i in channel['publish_interval'].split('\n')]
         themes_list = channel['themes'].split('\n')
         template = channel['template']
 
@@ -70,13 +70,12 @@ def write_post(channel):
                 if len(images_urls) > 0:
                     m = bot.send_photo(channel['telegram_id'], images_urls[0])
                 else:
-                    asyncio.run(generate_image(now_theme))
-                    time.sleep(10)
+                    generate_image(now_theme)
+                    # time.sleep(10)
                     m = bot.send_photo(channel['telegram_id'], open(f'images/{now_theme}.png', 'rb'))
                     os.remove(f'images/{now_theme}.png')
 
                 bot.reply_to(m, text_post)
-                # bot.send_message(channel['telegram_id'], text_post)
 
                 themes_list.pop(0)
                 

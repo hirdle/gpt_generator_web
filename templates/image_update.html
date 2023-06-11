@@ -10,7 +10,7 @@
 
 {% if images %}
 
-    <ul class="list-group mb-4">
+    <div class="grid_container">
         {% for i in images %}
             <li class="list-group-item images-list-item">
                 <img src="{{ MEDIA_URL}}{{ i.upload.url }}" alt="{{ i.theme }}">
@@ -18,7 +18,7 @@
                 <a href="/images/{{ i.id }}/delete/" class="btn btn-danger">Удалить</a>
             </li>
         {% endfor %}
-    </ul>
+    </div>
 
 {% else %}
 

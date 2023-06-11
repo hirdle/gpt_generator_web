@@ -9,6 +9,8 @@ from django.contrib.auth.models import User
 from .models import Channel, Image
 from .forms import ChannelForm, ImageForm
 
+import os
+
 
 
 def register_view(request):
@@ -42,8 +44,7 @@ def channel_update(request, id):
 
     
     if request.method == 'POST':
-            
-        form = ChannelForm(request.POST, instance=channel)
+        form = ChannelForm(request.POST, request.FILES, instance=channel)
         if form.is_valid():
             form.save()
             messages.success(request, 'Данные успешно обновлены!')
@@ -53,6 +54,7 @@ def channel_update(request, id):
         form = ChannelForm(instance=channel)
 
     return render(request, 'channel_update.html', {'form': form, "channel": channel})
+
 
 
 

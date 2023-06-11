@@ -11,6 +11,7 @@ urlpatterns = [
     path('<int:id>/', channel_update, name='channel_update'),
     
     path('images/<int:id>/', images_update, name='images_update'),
+    # path('images/<int:id>/multiply/', images_multiply_update, name='images_multiply_update'),
     path('images/<int:id>/delete/', image_delete, name='images_delete'),
 ]
 
