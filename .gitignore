@@ -5,6 +5,9 @@
 __pycache__
 db.sqlite3
 media
+poster/images/
+poster/overlays/
+poster/my_account.session
 
 # Backup files # 
 *.bak 

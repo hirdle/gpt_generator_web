@@ -3,7 +3,7 @@ textarea {
 }
 
 .images-list-item {
-    width: 400px;
+    max-width: 400px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -37,4 +37,10 @@ textarea {
     grid-gap: 20px;
     justify-items: center;
     align-items: center;
+}
+
+@media (max-width: 768px) {
+    .grid_container {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
