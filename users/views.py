@@ -5,12 +5,14 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
-from django.contrib.auth.models import User
 from .models import Channel, Image
 from .forms import ChannelForm, ImageForm
 
-import os
 
+
+
+def index(request):
+    return render(request, 'index.html')
 
 
 def register_view(request):
@@ -27,16 +29,14 @@ def register_view(request):
 
 
 @login_required
-def index(request):
+def channels_view(request):
     channels = Channel.objects.filter(owner=request.user)
-    return render(request, 'index.html', {"channels": channels})
+    return render(request, 'channels.html', {"channels": channels})
 
 
 
 @login_required
 def channel_update(request, id):
-
-
 
     channel = get_object_or_404(Channel, pk=id)
     if channel.owner != request.user:

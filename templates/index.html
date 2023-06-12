@@ -2,26 +2,6 @@
 
 {% block content %}
 
-<h1 class="mb-4">Каналы</h1>
-
-
-{% if channels %}
-  <ul class="list-group">
-    {% for channel in channels %}
-
-      <li class="list-group-item">
-        Название: {{ channel.name }}
-        <br>
-        <a href="/{{ channel.id }}">Изменить канал</a>
-      </li>
-      
-      
-      
-    {% endfor %}
-  </ul>
-  
-{% else %}
-  Нет активных каналов
-{% endif %}
+<h1 class="mb-4">Лендинг</h1>
   
 {% endblock %}
