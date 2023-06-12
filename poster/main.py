@@ -136,7 +136,7 @@ def watch_api():
             start_poster_channels(channels)
         last_channels = channels
 
-        time.sleep(120)
+        time.sleep(1800)
 
 # print(get_chatgpt_data('hhi'))
 # start_poster_channels(get_channels())
