@@ -13,8 +13,11 @@ import asyncio, os
 import telebot
 bot = telebot.TeleBot(config.API_TOKEN_TELEGRAM, parse_mode="html")
 
-default_domain = 'https://gpt-tool.ru/api/channels/'
-default_domain_img = 'https://gpt-tool.ru/api/images/'
+domain = 'http://127.0.0.1:8000'
+# domain = 'https://gpt-tool.ru'
+
+default_domain = f'{domain}/api/channels/'
+default_domain_img = f'{domain}/api/images/'
 
 poster_processes = []
 
@@ -45,6 +48,35 @@ def get_chatgpt_data(prompt):
     except Exception as e:
         print(error)
         return f"Возникли некоторые трудности."
+
+
+def send_wordpress_post(site, title, text):
+
+    url = f'{site}/create_post.php'
+    requests.post(url, data={"title": title, "content": text})
+
+    print("Success Wordpress")
+    
+
+def send_vk_post(group_id, message):
+
+    url = f'https://api.vk.com/method/wall.post'
+
+    params = {
+        'owner_id': group_id,
+        'access_token': config.API_TOKEN_VK,
+        'message': message,
+        'v': '5.131'
+    }
+
+    response = requests.post(url, params=params)
+    data = response.json()
+
+    if 'error' in data:
+        print('Error VK')
+    else:
+        print(f'Success VK')
+
 
 
 def write_post(channel):
@@ -78,12 +110,19 @@ def write_post(channel):
                 if len(images_urls) > 0:
                     m = bot.send_photo(channel['telegram_id'], images_urls[0])
                 else:
+                    
                     generate_image(now_theme, overlay_path)
-                    # time.sleep(10)
+                    
                     m = bot.send_photo(channel['telegram_id'], open(f'images/{now_theme}.png', 'rb'))
                     os.remove(f'images/{now_theme}.png')
 
                 bot.reply_to(m, text_post)
+
+                print('Success Telegram')
+
+                send_wordpress_post(channel['site_link'], now_theme, text_post)
+                send_vk_post(channel['vk_id'], text_post)
+
 
                 themes_list.pop(0)
                 
@@ -138,6 +177,6 @@ def watch_api():
 
         time.sleep(1800)
 
-# print(get_chatgpt_data('hhi'))
-# start_poster_channels(get_channels())
-watch_api()
+if __name__ == "__main__":
+    watch_api()
+    # generate_image("Привет", "")......
